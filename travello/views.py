@@ -35,8 +35,8 @@ def locate(request):
         print(ip)
         try:
             response=reader.city(ip)
-            latitude=int(response.location.latitude)
-            longitude=int(response.location.longitude)
+            latitude=float(response.location.latitude)
+            longitude=float(response.location.longitude)
 
         except :
             print("error occured")
