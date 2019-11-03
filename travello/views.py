@@ -46,9 +46,10 @@ def locate(request):
 # Create your views here.
 def index(request):
     
-     ob=locate(request)
-     dest1=Destination()
-     dest1.name='Mumbai'
-     dest1.desc='The city that never sleep'
-     dest1.price=700
-     return render(request,"index.html", {'dest1': dest1,'latitude':ob['latitude'],'longitude':ob['longitude'] })
+     #ob=locate(request)
+     #dest1=Destination()
+     #dest1.name='Mumbai'
+     #dest1.desc='The city that never sleep'
+     #dest1.price=700
+     return render(request,"project_index.html", {})
+
