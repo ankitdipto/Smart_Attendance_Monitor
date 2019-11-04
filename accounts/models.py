@@ -5,9 +5,9 @@ from django.db import models
 
 
 class students(models.Model):
-    name=models.Charfield(max_length=20)
+    name=models.CharField(max_length=20)
 
 class teachers(models.Model):
-    name=models.Charfield(max_length=20)
+    name=models.CharField(max_length=20)
 
 

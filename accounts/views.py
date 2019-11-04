@@ -17,9 +17,9 @@ def login(request):
         if user is not None and obj is not None:
             
             auth.login(request,user)
-            if group == "teacher"
+            if group == "teacher":
                 return redirect("teacher_control",username)
-            else return redirect("student_control",username)
+            else :return redirect("student_control",username)
         else:
             messages.info(request,'User Does Not Exist')
             return redirect('login')

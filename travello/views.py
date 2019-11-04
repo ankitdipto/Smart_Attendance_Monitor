@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Destination
+
 from django.shortcuts import render
 #from projects.models import project
 import socket
