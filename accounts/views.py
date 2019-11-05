@@ -2,24 +2,29 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import User,auth
 from django.contrib import messages
 from .models import students,teachers
+from attendance_maker.models import record
 # Create your views here.
 
 def login(request):
     if request.method == 'POST':
         username=request.POST['username']
         password=request.POST['password']
-        group=request.post['group']
-        if(group == 'teacher'):
-            obj=teachers.get.objects(name=username)
-        else:  obj=students.get.objects(name=username)
+        group=request.POST['group']
+        if(group == 'Teacher'):
+            obj=teachers.objects.get(name=username)
+        else:  obj=students.objects.get(name=username)
         user=auth.authenticate(username=username,password=password)
 
         if user is not None and obj is not None:
             
             auth.login(request,user)
-            if group == "teacher":
-                return redirect("teacher_control",username)
-            else :return redirect("student_control",username)
+            if group == "Teacher":
+                return redirect("teachers_desk")
+            else :
+                r=record.objects.get(name=username)
+                if r.status == False :
+                    return redirect("students_desk")
+                else : return redirect("project_index")
         else:
             messages.info(request,'User Does Not Exist')
             return redirect('login')
@@ -34,7 +39,7 @@ def register(request):
         email=request.POST['email']
         password1=request.POST['password1']
         password2=request.POST['password2']
-        
+        group=request.POST['group']
         if password1==password2:
             if User.objects.filter(username=username).exists():
                 messages.info(request,'username already taken')
@@ -43,9 +48,18 @@ def register(request):
                 messages.info(request,'email already present')
                 return redirect('register')
             else:
+                if(group == 'Teacher'):
+                    teacher=teachers(name=username)
+                    teacher.save()
+                else :
+                    student=students(name=username)
+                    student.save()
+                    r=record(name=username)
+                    r.save()
+                
                 user=User.objects.create_user(username=username,password=password1,email=email)
                 user.save()
-                return redirect('login')
+                return redirect('project_index')
                 #messages.info(request,'user created')
         
         else :

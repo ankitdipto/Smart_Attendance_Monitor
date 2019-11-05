@@ -6,4 +6,6 @@ class record(models.Model):
     subject1=models.IntegerField(default=0)
     subject2=models.IntegerField(default=0)
     subject3=models.IntegerField(default=0)
+    subject4=models.IntegerField(default=0)
+    status=models.BooleanField(default=False)
     #students=Students.objects.all()

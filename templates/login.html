@@ -34,7 +34,8 @@
 	<div class="limiter">
 		<div class="container-login100" >
 			<div class="wrap-login100 p-t-50 p-b-90" style="background-color: transparent;">
-				<form class="login100-form validate-form flex-sb flex-w">
+				<form method="POST" class="login100-form validate-form flex-sb flex-w" action="login">
+					{% csrf_token %}
 					<span class="login100-form-title p-b-51" style="color: white;">
 						Login
 					</span>
@@ -47,10 +48,13 @@
 					
 					
 					<div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
-						<input class="input100" type="password" name="pass" placeholder="Password">
+						<input class="input100" type="password" name="password" placeholder="Password">
 						<span class="focus-input100"></span>
 					</div>
-					
+					<div class="wrap-input100 validate-input m-b-16" data-validate = "Please Specify your role">
+						<input class="input100" type="text" name="group" placeholder="Teacher/Student">
+						<span class="focus-input100"></span>
+					</div>
 					<div class="flex-sb-m w-full p-t-3 p-b-24">
 						<div class="contact100-form-checkbox">
 							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">

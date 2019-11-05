@@ -35,7 +35,9 @@
 	<div class="limiter">
 		<div class="container-login100" >
 			<div class="wrap-login100 p-t-50 p-b-90" style="background-color: transparent;">
-				<form method="POST" class="login100-form validate-form flex-sb flex-w">
+					
+				<form method="POST" action="register" class="login100-form validate-form flex-sb flex-w">
+					{% csrf_token %}
 					<span class="login100-form-title p-b-51" style="color: white;">
 					Sign Up
 					</span>
@@ -47,19 +49,22 @@
 					</div>
 					
 					
-					<div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
+					<div class="wrap-input100 validate-input m-b-16" data-validate = "email id is required">
 						<input class="input100" type="email" name="email" placeholder="Email ID">
 						<span class="focus-input100"></span>
                     </div>
-                    
+                    <div class="wrap-input100 validate-input m-b-16" data-validate = "Please Specify your role">
+							<input class="input100" type="text" name="group" placeholder="Teacher/Student">
+							<span class="focus-input100"></span>
+						</div>
                     <div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
-                        <input class="input100" type="password" name="pass" placeholder="Password">
+                        <input class="input100" type="password" name="password1" placeholder="Password">
                     
 						<span class="focus-input100"></span>
                     </div>
                     
                     <div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
-						<input class="input100" type="password" name="re_pass" placeholder="Confirm Password">
+						<input class="input100" type="password" name="password2" placeholder="Confirm Password">
 						<span class="focus-input100"></span>
 					</div>
 					

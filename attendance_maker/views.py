@@ -1,13 +1,14 @@
 from django.shortcuts import render,redirect
 from .models import record
+
 from django.contrib import messages
 # Create your views here.
 import socket
 import geoip2.database
 # Create your views here.
 
-sub={'SKS':'subject1','AC':'subject2','SD':'subject3'}
-loc={'SKS':[-1,-1],'AC':[-1,-1],'SD':[-1,-1]}
+sub={'SKS':'subject1','AC':'subject2','PC':'subject3','RS Verma':'subject4'}
+loc={'SKS':[-1,-1],'AC':[-1,-1],'PC':[-1,-1],'RS Verma':[-1,-1]}
 
 def visitor_ip_address(request):
     x_forwarded_for=request.META.get('HTTP_X_FORWARDED_FOR')
@@ -42,7 +43,11 @@ def locate(request):
     return [latitude,longitude]
 
 
-def for_students(request,username):
+def for_students(request):
+    username=""
+    print("in for_students")
+    if request.user.is_authenticated:
+        username = request.user.username
     flag=0   
     teacher=""
     location=[-1,-1] 
@@ -59,28 +64,48 @@ def for_students(request,username):
             stud_location=locate(request)
             if(location[0]==stud_location[0] and location[1]==stud_location[1]):
                 student=record.objects.get(name=username)
-                student[sub[teacher]]=student[sub[teacher]]+1
+                #student[sub[teacher]]=student[sub[teacher]]+1
+                #for field in student._meta.fields:
+                #   if field.name == sub[teacher]:
+                #       student.field.name+=1
+                if sub[teacher] == 'subject1':
+                    student.subject1=student.subject1+1
+                elif sub[teacher] == 'subject2':
+                    student.subject2=student.subject2+1
+                elif sub[teacher] == 'subject3':
+                    student.subject3=student.subject3+1
+                elif sub[teacher] == 'subject4':
+                    student.subject4=student.subject4+1
+
+                student.status=True
                 student.save()
+                
                 return redirect('/')
             else: 
                  messages.info(request,'User Does Not Exist')
                  return redirect('students_desk')
         else:
-            return render(request,'students_desk',{})
+            return render(request,'students_desk.html',{})
     
     else: 
           return redirect("/")  
 
 
 
-def for_teachers(request,username):
+def for_teachers(request):
+    username=""
+    if request.user.is_authenticated:
+        username = request.user.username
     if request.method == 'POST':
         inp=request.POST['control']
-        if inp == 'start':
+        if inp == 'start' or inp=='Start':
+            record.objects.all().update(status=False)
             location=locate(request) 
             loc[username]=location
+            print(loc)
             return redirect('/')
-        elif inp == 'stop':
+        elif inp == 'stop' or inp=='Stop':
             loc[username]=[-1,-1]
+            return redirect('/')
     else:
-        return render(request,"teachers_desk",{})   
+        return render(request,"teachers_desk.html",{})   

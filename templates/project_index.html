@@ -1,6 +1,6 @@
-{% extends "base.html" %}
+
 {% load static %}
-{% block page_content %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,7 +47,7 @@
 					</div>
 				</div>
 				<div class="col-lg-9 col-md-9">
-					<a href="" class="site-btn header-btn">Login</a>
+					<a href="{% url 'login' %}" class="site-btn header-btn">Login</a>
 					<nav class="main-menu">
 						<ul>
           <li class="nav-item active">
@@ -83,40 +83,41 @@
 	<section class="categories-section spad">
 		<div class="container">
 			<div class="section-title">
-				<h2>Technologies Involved</h2>
-				<p>Lorem </p>
+				<h2 style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Technologies to be Involved</h2>
+				<p> </p>
 			</div>
 			<div class="row">
 				<!-- categorie -->
 				<div class="col-lg-4 col-md-6">
 					<div class="categorie-item">
-						<div class="ci-thumb set-bg" data-setbg="{% static 'imgh/categories/1.jpg' %}"></div>
+						<div class="ci-thumb set-bg" data-setbg="{% static 'imgh/categories/2.jpg' %}"></div>
 						<div class="ci-text">
-							<h5>Face Scan</h5>
-							<p>Lorem ipsum dolor sit amet, consectetur</p>
-							<span>120 Courses</span>
+							<h5>GMaps</h5>
+							<p></p>
+							<span><br>Google has Spotted you...</span>
 						</div>
 					</div>
 				</div>
 				<!-- categorie -->
 				<div class="col-lg-4 col-md-6">
 					<div class="categorie-item">
-						<div class="ci-thumb set-bg" data-setbg="{% static 'imgh/categories/2.jpg' %}"></div>
+						<div class="ci-thumb set-bg" data-setbg="{% static 'imgh/categories/1.jpg' %}"></div>
 						<div class="ci-text">
-							<h5>Web Design</h5>
-							<p>Lorem ipsum dolor sit amet, consectetur</p>
-							<span>70 Courses</span>
+							<h5>Face Recognition</h5>
+							<p></p>
+							<span><br>You are Identified...</span>
 						</div>
 					</div>
 				</div>
+				
 				<!-- categorie -->
 				<div class="col-lg-4 col-md-6">
 					<div class="categorie-item">
 						<div class="ci-thumb set-bg" data-setbg="{% static 'imgh/categories/3.jpg' %}"></div>
 						<div class="ci-text">
-							<h5>Illustration & Drawing</h5>
-							<p>Lorem ipsum dolor sit amet, consectetur</p>
-							<span>55 Courses</span>
+							<h5>Attendance Record</h5>
+							<p></p>
+							<span>Now Check your attendance 24X7...</span>
 						</div>
 					</div>
 				</div>
@@ -141,61 +142,64 @@
 	<div class="footer-top">
 		<div class="footer-warp">
 			<div class="row">
+				
 				<div class="widget-item">
-					<h4>Contact Info</h4>
-					<ul class="contact-list">
-						<li>1481 Creekside Lane <br>Avila Beach, CA 931</li>
-						<li>+53 345 7953 32453</li>
-						<li>yourmail@gmail.com</li>
-					</ul>
-				</div>
-				<div class="widget-item">
-					<h4>Engeneering</h4>
+					<h4>Institute Desk</h4>
 					<ul>
-						<li><a href="">Applied Studies</a></li>
-						<li><a href="">Computer Engeneering</a></li>
-						<li><a href="">Software Engeneering</a></li>
-						<li><a href="">Informational Engeneering</a></li>
-						<li><a href="">System Engeneering</a></li>
+						<li><a href="https://www.iitbhu.ac.in/dept/cse">Computer Science and Engineering </a></li>
+						<li><a href="https://www.iitbhu.ac.in/dept/ece">Electronics Engineering</a></li>
+						<li><a href="https://www.iitbhu.ac.in/dept/eee">Electrical Engineering</a></li>
+						<li><a href="https://www.iitbhu.ac.in/dept/mec">Mechanical Engineering</a></li>
+						
+					
+						
 					</ul>
 				</div>
 				<div class="widget-item">
-					<h4>Graphic Design</h4>
+					<h4>    </h4>
 					<ul>
-						<li><a href="">Applied Studies</a></li>
-						<li><a href="">Computer Engeneering</a></li>
-						<li><a href="">Software Engeneering</a></li>
-						<li><a href="">Informational Engeneering</a></li>
-						<li><a href="">System Engeneering</a></li>
+						<li><a href=""><br></a></li>
+						<li><a href="https://www.iitbhu.ac.in/dept/civ">Civil Engineering</a></li>
+						<li><a href="https://www.iitbhu.ac.in/dept/che">Chemical Engineering</a></li>
+						<li><a href="https://www.iitbhu.ac.in/dept/met">Metallurgy Engineering</a></li>
+						<li><a href="https://www.iitbhu.ac.in/dept/min">Mining Engineering</a></li>
+						<li><a href="https://www.iitbhu.ac.in/dept/cer">Ceramic Engeneering</a></li>
 					</ul>
 				</div>
 				<div class="widget-item">
-					<h4>Development</h4>
+					<h4>    </h4>
 					<ul>
-						<li><a href="">Applied Studies</a></li>
-						<li><a href="">Computer Engeneering</a></li>
-						<li><a href="">Software Engeneering</a></li>
-						<li><a href="">Informational Engeneering</a></li>
-						<li><a href="">System Engeneering</a></li>
+						<li><a href=""><br></a></li>
+						<li><a href="https://www.iitbhu.ac.in/dept/phe">Pharmaceutical Engineering and Technology</a></li>
+						<li><a href="https://www.iitbhu.ac.in/dept/bce">Biochemical Engineering</a></li>
+						<li><a href="https://www.iitbhu.ac.in/dept/bme">Biomedical Engineering</a></li>
+						<li><a href="https://www.iitbhu.ac.in/dept/mst">Material Science and Technology</a></li>
 					</ul>
 				</div>
 				<div class="widget-item">
-					<h4>Newsletter</h4>
-					<form class="footer-newslatter">
-						<input type="email" placeholder="E-mail">
-						<button class="site-btn">Subscribe</button>
-						<p>*We don’t spam</p>
-					</form>
+					<h4>    </h4>
+					<ul>
+						<li><a href=""><br></a></li>
+						<li><a href="https://www.iitbhu.ac.in/dept/apd">Architecture,Planning and Design</a></li>
+						<li><a href="https://www.iitbhu.ac.in/dept/mat">Mathematical Sciences</a></li>
+						<li><a href="https://www.iitbhu.ac.in/dept/apc">Chemistry</a></li>
+						<li><a href="https://www.iitbhu.ac.in/dept/app">Physics</a></li>
+						<li><a href="https://www.iitbhu.ac.in/dept/hss">Humanistic Studies</a></li>
+	
+						
+					</ul>
 				</div>
+				
+				
+				
 			</div>
 		</div>
 	</div>
 	<div class="footer-bottom">
 		<div class="footer-warp">
 			<ul class="footer-menu">
-				<li><a href="#">Terms & Conditions</a></li>
-				<li><a href="#">Register</a></li>
-				<li><a href="#">Privacy</a></li>
+				<li><a href="http://iitbhu.ac.in">Indian Institute of Technology (Banaras Hindu University)</a></li>
+				
 			</ul>
 			
 	</div>
@@ -203,7 +207,7 @@
 <p id = "status"></p>
 <a id = "map-link" target="_blank"></a>
 
-<script = "text/Javascripts">
+<script src= "text/Javascripts" >
 	function geoFindMe() {
 
 		const status = document.querySelector('#status');
@@ -240,5 +244,5 @@
 <!-- footer section end -->
 </body>
 </html>
-{% endblock %}
+
 

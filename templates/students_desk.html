@@ -1,3 +1,11 @@
-<form action="students_desk" method="post">
-    <input type="submit" name="Mark attendance" value="Upvote" />
+<!DOCTYPE html>
+<html>
+    <body>
+        <h3>Hurry Up! Mark your attendance</h3>
+        <form action="students_desk" method="post">
+        {% csrf_token %}
+        
+        <input type="submit">
+    </body>
 </form>
+</html>
