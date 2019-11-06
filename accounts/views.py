@@ -39,6 +39,7 @@ def register(request):
         email=request.POST['email']
         password1=request.POST['password1']
         password2=request.POST['password2']
+        subject=request.POST['subject']
         group=request.POST['group']
         if password1==password2:
             if User.objects.filter(username=username).exists():
@@ -49,7 +50,7 @@ def register(request):
                 return redirect('register')
             else:
                 if(group == 'Teacher'):
-                    teacher=teachers(name=username)
+                    teacher=teachers(name=username,subject=subject)
                     teacher.save()
                 else :
                     student=students(name=username)
