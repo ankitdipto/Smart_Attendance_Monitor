@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/2.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
-import django_heroku
+#import django_heroku
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'accounts',
     'attendance_maker',
     'travello',
+    #'import_export'
 ]
+
 
 
 MIDDLEWARE = [
@@ -81,9 +83,9 @@ WSGI_APPLICATION = 'anand.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'Attendance',
+        'NAME': 'Attendance2',
         'USER': 'root',
-        'PASSWORD': '9450',
+        'PASSWORD': 'dipto1999',
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
@@ -130,6 +132,9 @@ STATICFILES_DIRS=[
    os.path.join(BASE_DIR, 'static')
 ]
 STATIC_ROOT=os.path.join(BASE_DIR,'assets')
+
+MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+MEDIA_URL='/media/'
 # Activate Django-Heroku.
 
-django_heroku.settings(locals())
+#django_heroku.settings(locals())
