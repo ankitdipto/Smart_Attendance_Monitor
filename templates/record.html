@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+#customers {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: rgb(230, 178, 178);}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #d82a4e;
+  color: white;
+}
+</style>
+</head>
+<body bgcolor="silver">
+
+<h2 align="center" style="color: #d82a4e;font-size:xx-large;font-family:Trebuchet MS, Arial, Helvetica, sans-serif">ATTENDANCE REGISTER</h2>
+<p></p>
+
+<table id="customers">
+  <tr>
+    <th>Name</th>
+    <th>Subject-1</th> 
+    <th>Subject-2</th> 
+    <th>Subject-3</th> 
+    <th>Subject-4</th> 
+    <th>Subject-5</th>
+    <th>Subject-6</th>
+    {%for obj in StudentsRecord%}
+        <tr>
+                <td>{{obj.Student_Name}}</td>
+                <td>{{obj.A}}</td>
+                <td>{{obj.B}}</td>
+                <td>{{obj.C}}</td>
+                <td>{{obj.D}}</td>
+                <td>{{obj.E}}</td>
+                <td>{{obj.F}}</td> 
+        </tr>
+    {% endfor %}
+  </tr>
+</table>
+
+<h2 align="center" style="color: #d82a4e;font-size:xx-large;font-family:Trebuchet MS, Arial, Helvetica, sans-serif">SUBJECT INFORMATION</h2>
+<p></p>
+<table id="customers">
+  <tr>
+    <th>Subject-1</th> 
+    <th>Subject-2</th> 
+    <th>Subject-3</th> 
+    <th>Subject-4</th> 
+    <th>Subject-5</th>
+    <th>Subject-6</th>
+    {%for obj in SubjectInformation%}
+        <tr>
+                <td>{{obj.A}}</td>
+                <td>{{obj.B}}</td>
+                <td>{{obj.C}}</td>
+                <td>{{obj.D}}</td>
+                <td>{{obj.E}}</td>
+                <td>{{obj.F}}</td> 
+        </tr>
+    {% endfor %}
+  </tr>
+</table>
+</body>
+</html>

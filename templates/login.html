@@ -51,10 +51,17 @@
 						<input class="input100" type="password" name="password" placeholder="Password">
 						<span class="focus-input100"></span>
 					</div>
+
 					<div class="wrap-input100 validate-input m-b-16" data-validate = "Please Specify your role">
 						<input class="input100" type="text" name="group" placeholder="Teacher/Student">
 						<span class="focus-input100"></span>
 					</div>
+
+					<div class="wrap-input100 validate-input m-b-16" data-validate = "Class Code is required">
+						<input class="input100" type="text" name="Class Code" placeholder="Class Code (Type anything if you are a teacher)">
+						<span class="focus-input100"></span>
+					</div>
+
 					<div class="flex-sb-m w-full p-t-3 p-b-24">
 						<div class="contact100-form-checkbox">
 							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
@@ -101,9 +108,11 @@
 <!--===============================================================================================-->
 	<script src="{% static 'js/main.js' %}"></script>
         <div>
-            {% for message in messages %}
-            <h3> {{ message }} </h3>
-            {% endfor %}
+		{%if messages%}
+			{% for message in messages %}
+               {%if message.tags%}<script> alert("{{ message }}") </script>{%endif%}
+			{% endfor %}
+		{%endif%}
         </div>
     </body>
 </html>

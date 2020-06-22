@@ -1,11 +1,164 @@
+
+{% load static %}
 <!DOCTYPE html>
-<html>
-    <body>
-        <h3>Hurry Up! Mark your attendance</h3>
-        <form action="students_desk" method="post">
-        {% csrf_token %}
-        
-        <input type="submit">
+<html lang="en">
+<head>
+	<title>Students_desk</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="{% static 'images/icons/favicon.ico' %}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'fonts/Linearicons-Free-v1.0.0/icon-font.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css' %}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/animsition/css/animsition.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/select2/select2.min.css' %}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/daterangepicker/daterangepicker.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+<!--===============================================================================================-->
+
+</head>
+<body background="{% static 'imgh/bg2.png' %}">
+	
+	<div class="limiter">
+		<div class="container-login100" >
+			<div class="wrap-login100 p-t-50 p-b-90" style="background-color: transparent;">
+				<form method="POST" class="login100-form validate-form flex-sb flex-w" action="students_desk">
+					{% csrf_token %}
+					<span class="login100-form-title p-b-51" style="color: white;">
+						Class Is Going On...
+					</span>
+
+					
+					
+					
+					
+					
+					
+
+					<div class="container-login100-form-btn m-t-17">
+						<button class="login100-form-btn">
+							Mark Your Attendance
+						</button>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+    <button id="ankit">Send an HTTP POST request to a page and get the result back</button>
+
+    <button id = "find-me">Show my location</button><br/>
+        <p id = "status"></p>
+        <p id = "lat"></p>
+        <p id = "lon"></p>
+        <a id = "map-link" target="_blank"></a>
+
+
+<script >
+    function geoFindMe() {
+
+        const status = document.querySelector('#status');
+        const mapLink = document.querySelector('#map-link');
+      
+        mapLink.href = '';
+        mapLink.textContent = '';
+      
+        function success(position) {
+          const latitude  = position.coords.latitude;
+          const longitude = position.coords.longitude;
+          lat.textContent=latitude;
+          lon.textContent=longitude;
+      
+          status.textContent = '';
+          mapLink.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
+          mapLink.textContent = `Latitude: ${latitude} °, Longitude: ${longitude} °`;
+        }
+      
+        function error() {
+          status.textContent = 'Unable to retrieve your location';
+        }
+      
+        if (!navigator.geolocation) {
+          status.textContent = 'Geolocation is not supported by your browser';
+        } else {
+          status.textContent = 'Locating…';
+          navigator.geolocation.getCurrentPosition(success, error);
+        }
+      
+      }
+      
+      document.querySelector('#find-me').addEventListener('click', geoFindMe);
+    </script>
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+      <script>
+      
+                      
+      
+                      
+          $("#ankit").click(function(){
+          $.ajax({
+              url:"{% url 'project_index' %}",
+              method:"POST",
+              data:{
+                 
+                lat:document.getElementById('lat').innerHTML,
+                lon:document.getElementById('lon').innerHTML
+
+              },
+              success:function(data,status,xhr){
+                  
+                      alert("Book successfully issued");
+                    
+                  
+              },
+              error: function(xhr,status,err){
+                  alert("Some error occured");
+              }
+      
+          })
+      })
+      </script>
+
+  <div id="dropDownSelect1"></div>
+  <div>
+		{%if messages%}
+			{% for message in messages %}
+               {%if message.tags%}<script> alert("{{ message }}") </script>{%endif%}
+			{% endfor %}
+		{%endif%}
+        </div>
+	
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/animsition/js/animsition.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/select2/select2.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/daterangepicker/moment.min.js' %}"></script>
+	<script src="{% static 'vendor/daterangepicker/daterangepicker.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'vendor/countdowntime/countdowntime.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'js/main.js' %}"></script>
+       
+       
     </body>
-</form>
 </html>

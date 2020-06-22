@@ -58,8 +58,8 @@
 							<span class="focus-input100"></span>
 						</div>
 					
-					<div class="wrap-input100 validate-input m-b-16" data-validate = "Please Specify your role">
-							<input class="input100" type="text" name="subject" placeholder="Subject(no need for students)">
+					<div class="wrap-input100 validate-input m-b-16" >
+							<input class="input100" type="text" name="subject" placeholder="Subject(Type anything,for students)">
 							<span class="focus-input100"></span>
 					</div>
                     <div class="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
@@ -91,6 +91,13 @@
 	
 
 	<div id="dropDownSelect1"></div>
+	<div>
+		{%if messages%}
+			{% for message in messages %}
+               {%if message.tags%}<script> alert("{{ message }}") </script>{%endif%}
+			{% endfor %}
+		{%endif%}
+        </div>
 	
 <!--===============================================================================================-->
 	<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>

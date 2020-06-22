@@ -2,34 +2,62 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import User,auth
 from django.contrib import messages
 from .models import students,teachers
-from attendance_maker.models import record
+from attendance_maker.models import CLASS_CODE,Students_Record,Teachers_Record
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
 def login(request):
     if request.method == 'POST':
         username=request.POST['username']
         password=request.POST['password']
+        """
         group=request.POST['group']
+        classcode=request.POST['Class Code']
+        obj=None
         if(group == 'Teacher'):
-            obj=teachers.objects.get(name=username)
-        else:  obj=students.objects.get(name=username)
+            try:
+                obj=teachers.objects.get(name=username)
+            except:
+                pass
+                #messages.info(request,'You are not a teacher')
+                #return redirect('/')
+        else:  
+            try:
+                obj=students.objects.get(name=username)
+                print("student exists")
+            except:
+                pass
+                #messages.info(request,'You are not a student')
+                #return redirect('/')
+        print("username:",username)
+        print("password:",password)
+        """
         user=auth.authenticate(username=username,password=password)
+        auth.login(request,user)
+        print("user is",user)
 
+        """
         if user is not None and obj is not None:
             
             auth.login(request,user)
             if group == "Teacher":
-                return redirect("teachers_desk")
+                return redirect("send_response")
             else :
-                r=record.objects.get(name=username)
-                if r.status == False :
-                    return redirect("students_desk")
+                #r=record.objects.get(name=username)
+                objCode=CLASS_CODE.objects.get(Code=classcode)
+                SR=Students_Record.objects.get(Code=objCode,Student_Name=username)
+                if SR.status == False :
+                    return redirect("send_response2")
                 else : return redirect("project_index")
+               
         else:
             messages.info(request,'User Does Not Exist')
-            return redirect('login')
+            return redirect('/')
+        """
+        return redirect('/')
     else:
         return render(request,'login.html')   
+
 
 def register(request):
 
@@ -51,12 +79,13 @@ def register(request):
             else:
                 if(group == 'Teacher'):
                     teacher=teachers(name=username,subject=subject)
+                    #prof=Teachers_Record(code=classcode,A=username)
                     teacher.save()
                 else :
                     student=students(name=username)
                     student.save()
-                    r=record(name=username)
-                    r.save()
+                    #r=record(name=username)
+                    #r.save()
                 
                 user=User.objects.create_user(username=username,password=password1,email=email)
                 user.save()
@@ -73,4 +102,7 @@ def register(request):
 def logout(request):
     auth.logout(request)
     return redirect('/')
+
+
 # Create your views here.
+

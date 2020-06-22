@@ -304,7 +304,7 @@ ol {
 
 .hero-section {
 	height:800px;
-	width:1280px
+	
 }
 
 .hero-text {
@@ -352,14 +352,14 @@ ol {
 
 .categorie-item .ci-thumb {
 	background-size: cover;
-	height: 148px;
+	height: 250px;
 	-webkit-transition: all 0.2s;
 	-o-transition: all 0.2s;
 	transition: all 0.2s;
 }
 
 .categorie-item .ci-text {
-	padding: 40px 35px;
+	padding: 15px 35px;
 }
 
 .categorie-item .ci-text h5 {
