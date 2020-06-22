@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'anand.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.postgresql_psycopg2', 
+        'ENGINE': 'django.db.backends.postgresql', 
         'NAME': 'Attendance2',
         'USER': 'root',
         'PASSWORD': 'dipto1999',
