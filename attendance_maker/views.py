@@ -9,8 +9,8 @@ import socket
 import geoip2.database
 from accounts.models import teachers
 from accounts.models import students
-import face_recognition as fr
-import cv2
+#import face_recognition as fr
+#import cv2
 # Create your views here.
 
 #sub={'SKS':'subject1','AC':'subject2','PC':'subject3','RS Verma':'subject4'}
@@ -55,7 +55,7 @@ def verify_TeacherToSubject(ClassCode,TeacherName,SubjectName):
     return result
 
 def IdentifyFace(pathToPicture):
-
+    """
     imgComp=fr.load_image_file(MEDIA_ROOT+'/'+pathToPicture)
     faceDetect=cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
     cam=cv2.VideoCapture(0)
@@ -94,6 +94,8 @@ def IdentifyFace(pathToPicture):
         print(result)
     cam.release()
     cv2.destroyAllWindows()
+    """
+    result=True
     return result
 
 def locate(request):
