@@ -35,7 +35,8 @@ def isPresentInClass(student,prof):
 
 def verify_TeacherToSubject(ClassCode,TeacherName,SubjectName):
     print("in verify teacher to subject")
-    objCode=CLASS_CODE.objects.get(Code=ClassCode)
+    #objCode=CLASS_CODE.objects.get(Code=ClassCode)
+    objCode=ClassCode
     teacher=Teachers_Record.objects.get(Code=objCode)
     subinfo=Subject_Information.objects.get(Code=objCode)
     result=False
@@ -253,7 +254,8 @@ def for_teachers(request):
         inp=request.POST['control']
         ClassCode=request.POST['Class Code']
         SubjectName=request.POST['Subject Name']
-        objCode=CLASS_CODE.objects.get(Code=ClassCode)
+        #objCode=CLASS_CODE.objects.get(Code=ClassCode)
+        objCode=ClassCode
         if verify_TeacherToSubject(ClassCode,username,SubjectName)==False:
             #messages.info('You do not teach this subject!')
             print('You do not teach this subject')

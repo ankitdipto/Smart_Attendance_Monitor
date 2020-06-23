@@ -18,7 +18,8 @@ class CLASS_CODE(models.Model):
     Code=models.CharField(max_length=20)
 
 class Students_Record(models.Model):
-    Code=models.ForeignKey(CLASS_CODE,on_delete=models.CASCADE)
+    #Code=models.ForeignKey(CLASS_CODE,on_delete=models.CASCADE)
+    Code=models.CharField(max_length=20)
     Student_Name=models.CharField(max_length=20)
     A=models.IntegerField(default=0)
     B=models.IntegerField(default=0)
@@ -34,7 +35,8 @@ class Students_Record(models.Model):
     Image=models.ImageField(upload_to='images/')
 
 class Teachers_Record(models.Model):
-    Code=models.ForeignKey(CLASS_CODE,on_delete=models.CASCADE)
+    #Code=models.ForeignKey(CLASS_CODE,on_delete=models.CASCADE)
+    Code=models.CharField(max_length=20)
     A=models.CharField(max_length=20)
     B=models.CharField(max_length=20)
     C=models.CharField(max_length=20)
@@ -43,7 +45,8 @@ class Teachers_Record(models.Model):
     F=models.CharField(max_length=20)
     
 class Subject_Information(models.Model):
-    Code=models.ForeignKey(CLASS_CODE,on_delete=models.CASCADE)
+    #Code=models.ForeignKey(CLASS_CODE,on_delete=models.CASCADE)
+    Code=models.CharField(max_length=20)
     A=models.CharField(max_length=20)
     B=models.CharField(max_length=20)
     C=models.CharField(max_length=20)

@@ -102,8 +102,9 @@ def record(request):
     
     if request.method == 'POST' :
         code=request.POST['Class Code']
-        objCode=CLASS_CODE.objects.get(Code=code)
+        #objCode=CLASS_CODE.objects.get(Code=code)
         #student=Students_Record.objects.get(Student_Name=name)
+        objCode=code
         StudentsRecord=Students_Record.objects.filter(Code=objCode)
         SubjectInformation=Subject_Information.objects.filter(Code=objCode)
         return render(request,"record.html", {'StudentsRecord': StudentsRecord,'SubjectInformation':SubjectInformation})
