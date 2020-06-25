@@ -9,8 +9,12 @@ import socket
 import geoip2.database
 from accounts.models import teachers
 from accounts.models import students
-#import face_recognition as fr
-#import cv2
+import face_recognition as fr
+import requests
+import base64
+import json
+import numpy as np
+import cv2
 # Create your views here.
 
 #sub={'SKS':'subject1','AC':'subject2','PC':'subject3','RS Verma':'subject4'}
@@ -32,6 +36,12 @@ def isPresentInClass(student,prof):
         return True
     else :
         return False
+
+def decodeImage(image):
+    imgString=base64.b64decode(image)
+    imgNparr=np.frombuffer(imgString,dtype=np.uint8)
+    decoded_image=cv2.imdecode(imgNparr,flags=1)
+    return decoded_image
 
 def verify_TeacherToSubject(ClassCode,TeacherName,SubjectName):
     print("in verify teacher to subject")
@@ -56,48 +66,14 @@ def verify_TeacherToSubject(ClassCode,TeacherName,SubjectName):
     return result
 
 def IdentifyFace(pathToPicture):
-    """
+    url="https://androidKitkat99.pythonanywhere.com"
     imgComp=fr.load_image_file(MEDIA_ROOT+'/'+pathToPicture)
-    faceDetect=cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
-    cam=cv2.VideoCapture(0)
-    #sample_num=0
-    image=None
-    print('Trying to identify the student')
-    while(True):
-        ret,image=cam.read()
-        #time.sleep(3)
-        gray=cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
-        faces=faceDetect.detectMultiScale(gray,1.3,5)
-        flag=False
-        for (x,y,w,h) in faces:
-            #sample_num=sample_num+1
-            #cv2.imwrite('/home/ankit/Pictures/Webcam/face'+str(sample_num)+'.jpg',gray[y:y+h,x:x+w])
-            cv2.rectangle(image,(x,y),(x+w,y+h),(0,255,0),2)
-            cv2.waitKey(250)
-            imageEnc=fr.face_encodings(image)
-            #print(imageEnc)
-            if len(imageEnc)>0:
-                print("length of imageEnc",len(imageEnc))
-                flag=True
-        
-
-        cv2.imshow("Face",image)
-        cv2.waitKey(1)
-        if flag==True:
-            break
-
-    #print(imgComp)
-    if image is not None:
-        imgCompEnc=fr.face_encodings(imgComp)
-        #imageEnc=fr.face_encodings(image)[0]
-        #print(imgCompEnc)
-        result=fr.compare_faces(imgCompEnc,imageEnc[0])
-        print(result)
-    cam.release()
-    cv2.destroyAllWindows()
-    """
-    result=True
-    return result
+    imgCompEnc=fr.face_encodings(imgComp)
+    image=requests.post(url).json()
+    image=decodeImage(image)
+    imageEnc=fr.face_encodings(image)
+    result=fr.compare_faces(imgCompEnc,imageEnc[0])
+    return result[0]
 
 def locate(request):
     ip=visitor_ip_address(request)
