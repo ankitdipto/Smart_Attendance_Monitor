@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Face detection demo</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+
+<body>
+<h3 id="toc-basic-demo">Basic demo</h3-->
+<div id="screenshot" style="text-align:center;">
+  <video class="videostream" autoplay></video>
+  <img id="screenshot-img">
+  <p><button class="capture-button">Capture video</button>
+  <p><button id="screenshot-button" disabled>Take screenshot</button></p>
+  <p><button id="Send">Send the image to server</button></p>
+</div>
+<script >
+  const constraints = {video : true};
+  (function() {
+    const captureVideoButton = document.querySelector('#screenshot .capture-button');
+    const screenshotButton = document.querySelector('#screenshot-button');
+    const img = document.querySelector('#screenshot img');
+    const video = document.querySelector('#screenshot video');
+    
+    const canvas = document.createElement('canvas');
+
+    captureVideoButton.onclick = function() {
+      navigator.mediaDevices.getUserMedia(constraints).
+        then(handleSuccess).catch(handleError);
+    };
+
+    screenshotButton.onclick = video.onclick = function() {
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      canvas.getContext('2d').drawImage(video, 0, 0);
+      // Other browsers will fall back to image/png
+      var imageData = canvas.toDataURL('image/jpg');
+      img.src=imageData;      
+    }
+    function handleError(error) {
+      console.error('navigator.getUserMedia error: ', error);
+    }
+    function handleSuccess(stream) {
+      screenshotButton.disabled = false;
+      video.srcObject = stream;
+    }
+})();
+
+</script>
+<script src='http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.js'></script>
+<script>
+  $('#Send').click(function()
+    {
+      $.ajax({
+          type: "POST",
+          url: "{% url 'verifyFace' %}",
+          data: { 
+            imgBase64: document.querySelector('#screenshot img').src
+          },
+          success:function(response)
+          {
+            console.log(response);
+          },
+          error:function(error)
+          {
+            console.log(error);
+          }
+        }).done(function(o) {
+          console.log('saved'); 
+      });
+    } 
+  );
+</script>
+</body>
+</html>

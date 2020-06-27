@@ -12,9 +12,10 @@ from accounts.models import students
 import face_recognition as fr
 import requests
 import base64
-import json
+from PIL import Image
 import numpy as np
-import cv2
+from io import BytesIO
+#import cv2
 # Create your views here.
 
 #sub={'SKS':'subject1','AC':'subject2','PC':'subject3','RS Verma':'subject4'}
@@ -38,13 +39,20 @@ def isPresentInClass(student,prof):
         return False
 
 def decodeImage(image):
-    imgString=base64.b64decode(image)
-    imgNparr=np.frombuffer(imgString,dtype=np.uint8)
-    decoded_image=cv2.imdecode(imgNparr,flags=1)
-    return decoded_image
+    image_content = image.split(';')[1]
+    image_encoded = image_content.split(',')[1]
+    image_decoded = base64.decodebytes(image_encoded.encode('utf-8'))
+    stream=BytesIO(image_decoded)
+    image_png=Image.open(stream)
+    image_png.load() #needed for the split()
+    image_rgb=Image.new("RGB",image_png.size,(255,255,255))
+    image_rgb.paste(image_png,mask=image_png.split()[3]) #3 is the alpha channel
+    image_rgb=np.asarray(image_rgb)
+    return image_rgb
 
 def verify_TeacherToSubject(ClassCode,TeacherName,SubjectName):
     print("in verify teacher to subject")
+    #objCode=CLASS_CODE.objects.get(Code=ClassCode)
     #objCode=CLASS_CODE.objects.get(Code=ClassCode)
     objCode=ClassCode
     teacher=Teachers_Record.objects.get(Code=objCode)
@@ -65,14 +73,10 @@ def verify_TeacherToSubject(ClassCode,TeacherName,SubjectName):
         result=True
     return result
 
-def IdentifyFace(pathToPicture):
-    url="https://androidKitkat99.pythonanywhere.com"
-    imgComp=fr.load_image_file(MEDIA_ROOT+'/'+pathToPicture)
-    imgCompEnc=fr.face_encodings(imgComp)
-    image=requests.post(url).json()
-    image=decodeImage(image)
-    imageEnc=fr.face_encodings(image)
-    result=fr.compare_faces(imgCompEnc,imageEnc[0])
+def IdentifyFace(image_decoded,image_comp):
+    image_decoded_enc=fr.face_encodings(image_decoded)
+    image_comp_enc=fr.face_encodings(image_comp)
+    result=fr.compare_faces(image_comp_enc,image_decoded_enc[0])
     return result[0]
 
 def locate(request):
@@ -98,6 +102,27 @@ def locate(request):
     return [latitude,longitude]
 #and IP.objects.get(address=ip).exist()
 #location[0]==stud_location[0] and location[1]==stud_location[1] and
+
+@csrf_exempt
+def faceVerification(request):
+    if request.method=='POST':
+        image_encoded=request.POST['imgBase64']
+        image_decoded=decodeImage(image_encoded)
+        if request.user.is_authenticated:
+            name=request.user.username
+        student=Students_Record.objects.get(Student_Name=name)
+        image_comp=fr.load_image_file(student.Image)
+        faceRecognised=IdentifyFace(image_decoded,image_comp)
+        print('hello')
+        if faceRecognised == False:
+            messages.info("Sorry! ,your face did not match.Please try again and make sure that your image is clear")
+            return redirect("verifyFace")
+        else :
+            return redirect("verifyFace")
+    else:
+        print("about to render face_Identification.html")
+        return render(request,"face_Identification.html",{}) 
+
 def for_students(request):
     username=""
     subject=""
@@ -150,10 +175,10 @@ def for_students(request):
             subject=student.SubjectName
             subInfo=Subject_Information.objects.get(Code=student.Code)
 
-            faceRecognised=IdentifyFace(str(student.Image))
-            if faceRecognised == False :
-                messages.info('Sorry ,your face did not to match.In case of error try again!')
-                return redirect('project_index')
+            #faceRecognised=IdentifyFace(str(student.Image))
+            #if faceRecognised == False :
+            #    messages.info('Sorry ,your face did not match.In case of error try again!')
+            #    return redirect('project_index')
                 #student[sub[teacher]]=student[subteacher]]+1
                #for field in student._meta.fields:
                 #   if field.name == sub[teacher]:
@@ -306,6 +331,8 @@ def send_response2(request):
             student.save()
         except:
             pass
-        return redirect("students_desk")
+        print("rendering face_Identification.html")
+        return redirect("verifyFace")
     else:
         return render(request,"location_stud.html",{})
+

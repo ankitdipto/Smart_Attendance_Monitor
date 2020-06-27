@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 #import django_heroku
 import os
-import dj_database_url
+#import dj_database_url
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '5c^hq-$-73iew2x^31oed#(jc_r90jgs3$b#+c#2)+y%z@k)p^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
-ALLOWED_HOSTS = ['127.0.0.1','.herokuapp.com']
+#DEBUG = False
+DEBUG = True
+ALLOWED_HOSTS = ['localhost',"""'127.0.0.1'""",'.herokuapp.com']
 
 
 # Application definition
@@ -47,7 +47,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    #'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'anand.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql', 
+        'ENGINE': 'django.db.backends.mysql', 
         'NAME': 'Attendance2',
         'USER': 'root',
         'PASSWORD': 'dipto1999',
@@ -139,5 +139,5 @@ MEDIA_URL='/media/'
 # Activate Django-Heroku.
 
 #django_heroku.settings(locals())
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
+#db_from_env = dj_database_url.config(conn_max_age=500)
+#DATABASES['default'].update(db_from_env)
