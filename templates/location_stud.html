@@ -123,18 +123,23 @@
                     lon:document.getElementById('lon').innerHTML,
     
                   },
-                  success:function(data,status,xhr){
-                      
+                  success:function(response){
+                      console.log(response)
                           //alert("Book successfully issued");"http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"
                           //if(result === "no_errors") 
-                            window.location.href = "{% url 'students_desk' %}"
+                          window.location.href = "{% url 'verifyFace' %}"
+                          //alert("post request sent successfully")
                       
                   },//{% url 'teachers_desk' %}
-                  error: function(xhr,status,err){
+                  error: function(error){
                       alert("Some error occured");
                   }
           
-              })
+              }).done(function(o)
+                {
+                  console.log("ajax post request has been sent")
+                }
+              )
           })
           </script>
     

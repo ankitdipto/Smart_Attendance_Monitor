@@ -61,6 +61,7 @@
           },
           success:function(response)
           {
+            window.location.href="{% url 'students_desk' %}"
             console.log(response);
           },
           error:function(error)
@@ -73,5 +74,11 @@
     } 
   );
 </script>
+<script src="{% static 'js/main.js' %}"></script>
+<div>
+    {% for message in messages %}
+    <script> alert("{{ message }}") </script>
+    {% endfor %}
+</div>
 </body>
 </html>

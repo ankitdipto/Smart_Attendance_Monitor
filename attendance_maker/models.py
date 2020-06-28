@@ -33,6 +33,7 @@ class Students_Record(models.Model):
     longitude=models.FloatField(default=-1)
     IP=models.CharField(max_length=30,default='#')
     Image=models.ImageField(upload_to='images/')
+    Image_current=models.ImageField(upload_to='images/')
 
 class Teachers_Record(models.Model):
     #Code=models.ForeignKey(CLASS_CODE,on_delete=models.CASCADE)
