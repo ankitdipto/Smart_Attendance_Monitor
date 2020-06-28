@@ -183,8 +183,10 @@ def for_students(request):
             subject=student.SubjectName
             subInfo=Subject_Information.objects.get(Code=student.Code)
             try:
-                image_decoded=fr.load_image_file(MEDIA_ROOT+"/"+str(student.Image))
-                image_comp=fr.load_image_file(MEDIA_ROOT+"/"+str(student.Image_current))
+                image_decoded=fr.load_image_file(MEDIA_ROOT+"/"+str(student.Image_current))
+                messages.info(request,"decoded image has been successfully loaded from the database")
+                image_comp=fr.load_image_file(MEDIA_ROOT+"/"+str(student.Image))
+                messages.info(request,"actual image has been successfully loaded from the database")
                 faceRecognised=IdentifyFace(image_decoded,image_comp)
             except:
                 faceRecognised=False
