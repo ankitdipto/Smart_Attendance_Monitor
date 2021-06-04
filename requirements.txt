@@ -9,7 +9,7 @@ cmake
 dlib
 face-recognition==1.3.0
 face-recognition-models==0.3.0
-Django==3.0.7
+Django==3.1.9
 geoip2==3.0.0
 gunicorn==20.0.4
 idna==2.9
